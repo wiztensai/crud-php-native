@@ -1,15 +1,18 @@
 {
-  "name": "apibukutes",
-  "version": "0.1.0",
-  "private": true,
+  "dependencies": {},
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build:css": "postcss styles.css -o output.css",
+    "watch:css": "postcss styles.css -o output.css -w"
   },
-  "dependencies": {
-    "next": "9.4.4",
-    "react": "16.13.1",
-    "react-dom": "16.13.1"
-  }
+  "name": "bukuapites",
+  "version": "1.0.0",
+  "main": "",
+  "devDependencies": {
+    "autoprefixer": "^9.8.0",
+    "postcss-cli": "^7.1.1",
+    "tailwindcss": "^1.4.6"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
