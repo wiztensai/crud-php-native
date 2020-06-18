@@ -7,23 +7,20 @@
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     
     include_once '../../config/database.php';
-    include_once '../../class/buku.php';
+    include_once '../../class/kategori.php';
     
     $database = new Database();
     $db = $database->getConnect();
 
-    $items = new Buku($db);
+    $items = new Kategori($db);
 
     $items->id = $_POST["id"];
-    $items->judul = $_POST["judul"];
-    $items->categ_id = $_POST["categ_id"];
-    $items->writer_id = $_POST["writer_id"];
     
-    echo json_encode($items);
+    // echo json_encode($items);
 
-    if($items->updateBuku()){
-        echo json_encode(true);
+    if($items->hapusKategori()){
+        // echo json_encode(true);
     } else{
-        echo json_encode(false);
+        // echo json_encode(false);
     }
 ?>

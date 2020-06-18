@@ -1,15 +1,13 @@
 module.exports = {
   purge: {
-    enabled: false,
+    enabled: true,
     content: [
     '**/*.html',
     '**/*.php',
     '**/*.js'    
   ]
 },
-  theme: {
-    extend: {      
-    },
+  theme: {    
   },
   variants: {
     

@@ -22,7 +22,15 @@
 
         // GET ALL
         public function getBooks(){
-            $sqlQuery = "SELECT * FROM " . $this->db_table_buku . "";
+            // $sqlQuery = "SELECT * FROM " . $this->db_table_buku . "";
+            $sqlQuery = "SELECT a.*, b.nama as writer_name, c.nama as category FROM $this->db_table_buku as a
+            LEFT JOIN $this->db_table_penulis as b            
+            ON a.writer_id = b.id 
+            LEFT JOIN $this->db_table_kategori as c
+            ON a.categ_id = c.id
+            ORDER BY a.id DESC
+            ".PHP_EOL;
+
             if ($result = mysqli_query($this->conn, $sqlQuery)) {
                 return $result;
             } else return null;
@@ -41,19 +49,37 @@
         }
 
         // UPDATE
-        public function updateEmployee(){
-            // buat query update
-            $sql = "UPDATE $this->db_table_buku SET judul='$nama', categ_id='$categ_id', writer_id='$writer_id' WHERE id=$id".PHP_EOL;
-            $query = mysqli_query($db, $sql);
-        
-            // apakah query update berhasil?
-            if( $query ) {
-                // kalau berhasil alihkan ke halaman list-siswa.php
-                // header('Location: list-siswa.php');
+        public function updateBuku(){
+            $sql = "UPDATE $this->db_table_buku SET judul='$this->judul', categ_id='$this->categ_id', writer_id='$this->writer_id' WHERE id=$this->id".PHP_EOL;
+            $query = mysqli_query($this->conn, $sql);
+
+            if( $query ) {                
+                return true;
+            } else {                
+                return false;
+            }
+        }
+
+        // DELETE
+        public function hapusBuku(){
+            $sql = "DELETE FROM $this->db_table_buku WHERE id=$this->id".PHP_EOL;
+            $query = mysqli_query($this->conn, $sql);
+
+            if( $query ) {                
+                return true;
+            } else {                
+                return false;
+            }
+        }
+
+        // CREATE
+        public function tambahBuku(){
+            $sql = "INSERT INTO $this->db_table_buku (judul, categ_id, writer_id)
+            VALUES ('$this->judul', '$this->categ_id', '$this->writer_id')".PHP_EOL;
+
+            if (mysqli_query($this->conn, $sql) == TRUE) {
                 return true;
             } else {
-                // kalau gagal tampilkan pesan
-                // die("Gagal menyimpan perubahan...");
                 return false;
             }
         }

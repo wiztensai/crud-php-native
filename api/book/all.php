@@ -23,7 +23,9 @@
                 "id" => $obj->id,
                 "judul" => $obj->judul,
                 "categ_id" => $obj->categ_id,
-                "writer_id" => $obj->writer_id
+                "writer_id" => $obj->writer_id,
+                "writer_name" => $obj->writer_name,
+                "category" => $obj->category
             );
 
             array_push($dataArr, $e);
