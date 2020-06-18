@@ -1,8 +1,9 @@
 module.exports = {
   purge: {
-    enabled: false,
+    enabled: true,
     content: [
     '**/*.html',
+    '**/*.php',
     '**/*.js'    
   ]
 },
