@@ -39,4 +39,25 @@ function get_content($url) {
     return json_decode($result);
 }
 
+function post_decode($url, $body) {
+    // set post fields
+    // $post = [
+    //     'username' => 'user1',
+    //     'password' => 'passuser1',
+    //     'gender'   => 1,
+    // ];
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+
+    // execute!
+    $response = curl_exec($ch);
+
+    // close the connection, release resources used
+    curl_close($ch);
+
+    return json_decode($response);
+}
+
 ?>

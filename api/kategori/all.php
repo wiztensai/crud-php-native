@@ -6,29 +6,28 @@
     include_once '../../class/kategori.php';
 
     $database = new Database();
-    $db = $database->getConnection();
+    $db = $database->getConnect();
 
     $items = new Kategori($db);
 
-    $stmt = $items->getKategori();
-    $itemCount = $stmt->rowCount();
+    $result = $items->getKategori();
 
-    // echo json_encode($itemCount);
+    $itemCount = $result->num_rows;
 
     if($itemCount > 0){
         
-        $employeeArr = array();
+        $dataArr = array();
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            extract($row);
+        while ($obj = mysqli_fetch_object($result)) {
             $e = array(
-                "id" => $id,
-                "nama" => $nama
+                "id" => $obj->id,
+                "nama" => $obj->nama
             );
 
-            array_push($employeeArr, $e);
+            array_push($dataArr, $e);
         }
-        echo json_encode($employeeArr);
+
+        echo json_encode($dataArr);
     }
 
     else{

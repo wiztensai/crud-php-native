@@ -23,9 +23,9 @@
         // GET ALL
         public function getPenulis(){
             $sqlQuery = "SELECT * FROM " . $this->db_table_penulis . "";
-            $stmt = $this->conn->prepare($sqlQuery);
-            $stmt->execute();
-            return $stmt;
+            if ($result = mysqli_query($this->conn, $sqlQuery)) {
+                return $result;
+            } else return null;
         }        
     }
 

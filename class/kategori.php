@@ -23,9 +23,9 @@
         // GET ALL
         public function getKategori(){
             $sqlQuery = "SELECT * FROM " . $this->db_table_kategori . "";
-            $stmt = $this->conn->prepare($sqlQuery);
-            $stmt->execute();
-            return $stmt;
+            if ($result = mysqli_query($this->conn, $sqlQuery)) {
+                return $result;
+            } else return null;
         }        
     }
 

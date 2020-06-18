@@ -9,14 +9,17 @@ class Database{
   
     public $conn;
 
-    public function getConnection(){
+    public function getConnect() {
         $this->conn = null;
-        try{
-            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
-            $this->conn->exec("set names utf8");
-        }catch(PDOException $exception){
-            echo "Database could not be connected: " . $exception->getMessage();
+
+        $this->conn = new mysqli($this->host,$this->username,$this->password,$this->db_name);
+
+        // Check connection
+        if ($this->conn -> connect_errno) {
+            echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+            exit();
         }
+
         return $this->conn;
     }
 }

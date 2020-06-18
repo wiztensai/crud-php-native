@@ -6,31 +6,30 @@
     include_once '../../class/buku.php';
 
     $database = new Database();
-    $db = $database->getConnection();
+    $db = $database->getConnect();
 
     $items = new Buku($db);
 
-    $stmt = $items->getBooks();
-    $itemCount = $stmt->rowCount();
+    $result = $items->getBooks();
 
-    // echo json_encode($itemCount);
+    $itemCount = $result->num_rows;
 
     if($itemCount > 0){
         
-        $employeeArr = array();
+        $dataArr = array();
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            extract($row);
+        while ($obj = mysqli_fetch_object($result)) {
             $e = array(
-                "id" => $id,
-                "judul" => $judul,
-                "categ_id" => $categ_id,
-                "writer_id" => $writer_id
+                "id" => $obj->id,
+                "judul" => $obj->judul,
+                "categ_id" => $obj->categ_id,
+                "writer_id" => $obj->writer_id
             );
 
-            array_push($employeeArr, $e);
+            array_push($dataArr, $e);
         }
-        echo json_encode($employeeArr);
+
+        echo json_encode($dataArr);
     }
 
     else{

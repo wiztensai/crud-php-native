@@ -1,7 +1,3 @@
-<?php
-    $response_data = fetch_decode($url_getbooks);
-?>
-
 	<!--Navigation-->
     <?php include_once (APP_ROOT."/src/templates/nav_buku.html");  ?>
 
@@ -22,8 +18,11 @@
                 </thead>
                 <tbody>
 					<?php
-					$response_data = fetch_decode($url_getbooks);
+                    $response_data = fetch_decode($url_getbooks);
+                    
                     $edit_link = "view_buku.php";
+
+                    // var_dump($response_data);
 
 					foreach ($response_data as $data) {
 						echo

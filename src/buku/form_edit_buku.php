@@ -1,10 +1,6 @@
 <?php
 $bukuid = $_GET['bukuid'];
 
-// $books = get_content($url_getbooks);
-// $list_penulis = fetch_decode($url_getpenulis);
-// $kategoris = fetch_decode($url_getkategori);
-
 ?>
     <!--Navigation-->
     <?php include_once(APP_ROOT.'/src/templates/nav_buku.html'); ?>
@@ -18,30 +14,66 @@ $bukuid = $_GET['bukuid'];
 
                 <fieldset>
                     <p>
-                        <label for="nama">Judul buku: </label>
-                        <input type="text" name="nama" placeholder="nama lengkap" value="" />
+                        <label for="judul">Judul buku: </label>
+
+                        <?php                            
+                            $books = fetch_decode($url_book_single."?id=".$bukuid);
+
+                            echo "
+                            <input type='text' name='judul' placeholder='nama lengkap' value='$books->judul' />
+                            ".PHP_EOL;
+                        ?>                        
                     </p>
 
-                    <label for="cars">Pilih Kategori:</label>
-                    <select name="cars" id="cars">
-                        <option value="volvo">Volvo</option>
+                    <label for="kategori">Pilih Kategori:</label>
+                    <select name="kategori">
+                        <?php
+                            $kategoris = fetch_decode($url_getkategori);
+
+                            foreach ($kategoris as $data) {
+                                echo "<option value='$data->id'>$data->nama</option>".PHP_EOL;
+                            }                            
+                        ?>
+                        
                     </select>
 
-                    <label for="cars">Pilih Penulis:</label>
-                    <select name="cars" id="cars">
-                        <option value="volvo">Volvo</option>
+                    <label for="writer_id">Pilih Penulis:</label>
+                    <select name="writer_id">
+                        <<?php
+                            $list_penulis = fetch_decode($url_getpenulis);
+
+                            foreach ($list_penulis as $data) {
+                                echo "<option value='$data->id'>$data->nama</option>".PHP_EOL;
+                            }                            
+                        ?>
                     </select>
 
                     <p>
-                        <input type="submit" value="Simpan" name="simpan" />
+                        <input type="submit" value="Edit" name="edit" />
                     </p>
 
                 </fieldset>
 
 
-            </form>
-            
-            <?php echo $url_getbooks; ?>
+            </form>        
         </div>
 
     </div>
+
+<?php
+    if(isset($_POST['edit'])){
+    
+        $post = [
+            'id' => $_POST['id'],
+            'judul' =>  $_POST['judul'],
+            'categ_id'   => $_POST['categ_id'],
+            'writer_id'   => $_POST['writer_id']
+        ];
+
+        $res = post_decode($url_book_update, $post);
+        var_dump($res);
+    
+    } else {
+        die("Akses dilarang...");
+    }
+?>
